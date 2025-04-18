@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Quality Tester</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #5f0f40, #9a031e);
+            margin: 0;
+            padding: 40px 20px;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .form-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #f7d9d9;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            background-color: #ffffffee;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px #f3a712;
+        }
+
+        .button {
+            display: block;
+            margin: 40px auto 0;
+            padding: 12px 30px;
+            font-size: 16px;
+            background-color: #f3a712;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #ffbe0b;
+        }
+
+        .prediction {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.4rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🍷 Wine Quality Tester</h1>
+
+    <form method="POST" action="/predict" class="form-container">
+        <div class="grid">
+            {% for name in feature_names %}
+            <div class="grid-item">
+                <label>{{ name }}</label>
+                <input type="text" name="feature{{ loop.index }}" required>
+            </div>
+            {% endfor %}
+        </div>
+        <input type="submit" value="Predict Quality" class="button">
+    </form>
+
+    {% if prediction %}
+    <div class="prediction">
+        <h3>Prediction Result: {{ prediction }}</h3>
+    </div>
+    {% endif %}
+</body>
+</html>
